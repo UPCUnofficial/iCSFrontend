@@ -61,3 +61,7 @@ yarn run build
 - 课表XLS(至少保留一门课程的信息)
 - 使用平台 (如 `移动端 Chrome 92`
 - Console错误输出 (如存在)
+## 🧩 使用的相关库
+- Vue
+- [Vuetify](https://vuetifyjs.com/)
+- [Sheetjs](https://github.com/SheetJS/sheetjs)

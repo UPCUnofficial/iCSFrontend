@@ -22,8 +22,7 @@ jobs:
       with:
         cache: 'yarn'
     - run: yarn
-    - run: yarn run build --if-present
+    - run: yarn run build
     - uses: mikeal/publish-to-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH_NAME: 'deploy'

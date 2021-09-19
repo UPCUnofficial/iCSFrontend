@@ -18,7 +18,7 @@
 `iCS Convertor`适用于`新版强智教务系统`导出的`学生当前课表.xls`.转换过程在浏览器端纯本地进行,无隐私泄露风险.
 
 ## 🙌 简单的开始
-使用现代浏览器(`Chrome`/`Safari`/`Firefox`)访问已部署`iCS Convertor`的[站点](#🌏-已部署站点)即可.
+使用现代浏览器(`Chrome`/`Safari`/`Firefox`)访问已部署`iCS Convertor`的[站点](#-已部署站点)即可.
 ## 🚀 开发
 ### 流程
 本页面是个标准的Vue SPA应用,遵循标准的Nodejs SPA应用开发流程.

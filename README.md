@@ -7,7 +7,7 @@
 
 # iCS Convertor
 
-![GitHub stars](https://img.shields.io/github/stars/lx200916/UPC_ics-Public?style=flat) ![GitHub forks](https://img.shields.io/github/forks/lx200916/UPC_ics-Public)
+![GitHub stars](https://img.shields.io/github/stars/UPCUnofficial/iCSFrontend?style=flat) ![GitHub forks](https://img.shields.io/github/forks/UPCUnofficial/iCSFrontend)
 
 纯前端实现的`iCS Convertor`！
 </div>

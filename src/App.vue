@@ -9,7 +9,7 @@
             alt="Vuetify Logo"
             class="shrink mr-2"
             contain
-            src="https://raw.githubusercontent.com/lx200916/iCS_Importer/master/app/src/main/res/drawable/ic_launcher.png"
+            src="https://i.loli.net/2021/09/19/6NW7c5qKm2hfDkj.png"
             transition="scale-transition"
             width="40"
         />
@@ -59,11 +59,11 @@
           <v-stepper-content step="1">
             <v-card
                 v-show="files==null||xlsValid===false"
-                max-width="344"
                 :color="dark?'grey darken-3':'grey lighten-5'"
-                style="margin:5px"
-
+                max-width="344"
                 rounded
+
+                style="margin:5px"
 
             >
               <v-list-item three-line>
@@ -74,7 +74,7 @@
                   <v-list-item-title class="text-h5 mb-1">
 
                   </v-list-item-title>
-                  <v-list-item-subtitle >仅支持 <code>教务系统->学期理论课表->我的课表->打印</code> 导出的.xls文件</v-list-item-subtitle>
+                  <v-list-item-subtitle>仅支持 <code>教务系统->学期理论课表->我的课表->打印</code> 导出的.xls文件</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-avatar
@@ -132,10 +132,10 @@
             </v-card>
             <v-card
                 v-show="xlsValid"
+                :color="dark?'grey darken-3':'grey lighten-5'"
                 max-width="344"
                 rounded
                 style="padding-bottom: 10px;padding-top: 10px"
-                :color="dark?'grey darken-3':'grey lighten-5'"
             >
 
               <v-list-item three-line>
@@ -262,54 +262,56 @@
           <v-stepper-content step="2">
             <p>为了确保正常解析,请先确认目标学期与学期开始周的周一日期.</p>
             <span class="text-body-1">本学期为:</span>
-            <v-select
-                v-model="schoolTerm"
-                :hint="`${schoolTerm.date}`"
-                :items="schoolTerms"
-                item-text="name"
-                item-value="date"
-                label="选取"
-                filled
-                persistent-hint
-                return-object
+            <v-select v-model="schoolTerm"
+
+                      :hint="`${schoolTerm.date}`"
+                      :items="schoolTerms"
+                      filled
+                      item-text="name"
+                      item-value="date"
+                      label="选取"
+                      style="max-width:344px"
+                      persistent-hint
+                      return-object
 
             ></v-select>
             <v-row v-if="schoolTerm.name=='自定义'">
-              <v-col  >
+              <v-col>
                 <v-text-field
+                    v-model="startDate.year"
+                    filled
                     label="年份"
                     placeholder="如2020"
-                    filled
-                    v-model="startDate.year"
                     @change="concatDate"
 
                 ></v-text-field>
 
               </v-col>
-              <v-col  >
+              <v-col>
                 <v-text-field
+                    v-model="startDate.month"
+                    filled
                     label="月份"
                     placeholder="如09"
-                    filled
-                    v-model="startDate.month"
                     @change="concatDate"
 
                 ></v-text-field>
 
-              </v-col>   <v-col  >
-              <v-text-field
-                  label="日期"
-                  placeholder="如01"
-                  filled
-                  v-model="startDate.day"
-                  @change="concatDate"
+              </v-col>
+              <v-col>
+                <v-text-field
+                    v-model="startDate.day"
+                    filled
+                    label="日期"
+                    placeholder="如01"
+                    @change="concatDate"
 
-              ></v-text-field>
+                ></v-text-field>
 
-            </v-col>
+              </v-col>
             </v-row>
             <p class="text--primary text-body-1">
-              本学期开始于 <code>{{schoolTerm.date}}</code>
+              本学期开始于 <code>{{ schoolTerm.date }}</code>
 
             </p>
 
@@ -322,7 +324,7 @@
               开始解析
             </v-btn>
             <v-btn text
-            @click="steps=steps-1">
+                   @click="steps=steps-1">
               上一步
             </v-btn>
           </v-stepper-content>
@@ -339,35 +341,40 @@
               点击日历块可查看详情,上下滑动可展示更多时间.
             </span>
             <v-sheet
-                tile
-                height="54"
                 class="d-flex align-center"
+                height="54"
+                tile
             >
               <v-btn
-                  icon
                   class="ma-2"
+                  icon
                   @click="$refs.calendar.prev()"
               >
                 <v-icon>mdi-chevron-left</v-icon>
-              </v-btn><v-spacer></v-spacer>
+              </v-btn>
+              <v-spacer></v-spacer>
 
-              <div style="vertical-align: middle" class="text-center align-center  font-weight-bold">{{now}} - {{getWeekDate}}</div><v-spacer></v-spacer>
+              <div class="text-center align-center  font-weight-bold" style="vertical-align: middle">{{ now }} -
+                {{ getWeekDate }}
+              </div>
+              <v-spacer></v-spacer>
               <v-btn
-                  icon
                   class="ma-2"
+                  icon
                   @click="$refs.calendar.next()"
               >
                 <v-icon>mdi-chevron-right</v-icon>
-              </v-btn></v-sheet>
+              </v-btn>
+            </v-sheet>
             <v-sheet height="600" style="margin-bottom: 30px;">
               <v-calendar
                   ref="calendar"
                   v-model="now"
-                  @click:event="showEvent"
-                  :weekdays="[1, 2, 3, 4, 5, 6, 0]"
-                  :type="$vuetify.breakpoint.mobile?'4day':'week'"
-                  :events="events"
                   :event-overlap-threshold="30"
+                  :events="events"
+                  :type="$vuetify.breakpoint.mobile?'4day':'week'"
+                  :weekdays="[1, 2, 3, 4, 5, 6, 0]"
+                  @click:event="showEvent"
               ></v-calendar>
             </v-sheet>
             <v-btn
@@ -389,9 +396,10 @@
               在移动端导入时可设置课前提醒.提醒样式与是否生效取决于具体日历应用.
             </span>
             <v-select
-                :items="reminders"
                 v-model="reminder"
-                filled
+                :items="reminders" filled
+                style="max-width:344px"
+
                 label="课前提醒"
             ></v-select>
             <v-btn
@@ -413,7 +421,7 @@
       >
         <v-card>
           <v-card-title>
-            {{detailInfo.name}}
+            {{ detailInfo.name }}
           </v-card-title>
           <div class="ml-4">
             <v-chip
@@ -425,7 +433,7 @@
               <v-icon left>
                 mdi-account-circle-outline
               </v-icon>
-              {{detailInfo.teacher}}
+              {{ detailInfo.teacher }}
             </v-chip>
             <v-chip
                 class="ma-2 v-chip--active"
@@ -436,42 +444,44 @@
               <v-icon left>
                 mdi-map-marker-outline
               </v-icon>
-              {{detailInfo.position}}
+              {{ detailInfo.position }}
             </v-chip>
             <v-divider class="mx-4 mb-2 ma-2"></v-divider>
-<div class="mx-2">
+            <div class="mx-2">
             <span class="text-body-1">
               上课周次
             </span>
-  <v-chip-group
-      multiple
-  >
-    <v-chip
-        v-for="tag in detailInfo.date.split(',')"
-        :key="tag"
-        class="primary--text v-chip--active"
-    >
-      第{{ tag }}周
-    </v-chip>
-  </v-chip-group>
+              <v-chip-group
+                  multiple
+              >
+                <v-chip
+                    v-for="tag in detailInfo.date.split(',')"
+                    :key="tag"
+                    class="primary--text v-chip--active"
+                >
+                  第{{ tag }}周
+                </v-chip>
+              </v-chip-group>
 
-  <p class="text-body-1 mb-1 ">
-              上课节次
-            </p>
-  <v-chip
-      class="v-chip--active"
+              <p class="text-body-1 mb-1 ">
+                上课节次
+              </p>
+              <v-chip
+                  class="v-chip--active"
 
-      color="teal--text accent-4"
-      label
-  >
-    <v-icon left>
-      mdi-clock-outline
-    </v-icon>
-    {{detailInfo.time}}
-  </v-chip>
-</div>
+                  color="teal--text accent-4"
+                  label
+              >
+                <v-icon left>
+                  mdi-clock-outline
+                </v-icon>
+                {{ detailInfo.time }}
+              </v-chip>
+            </div>
           </div>
-          <v-card-text></v-card-text></v-card></v-dialog>
+          <v-card-text></v-card-text>
+        </v-card>
+      </v-dialog>
     </v-main>
     <v-footer app
               padless
@@ -506,7 +516,8 @@
 <script>
 import XLSX from 'xlsx'
 import schoolTerm from './assets/conf_schoolTerms.json'
-import {Parser,iCSExport} from "@/plugins/parser";
+import {iCSExport, Parser} from "@/plugins/parser";
+
 const openDownloadDialog = (url, fileName) => {
   if (typeof url === 'object' && url instanceof Blob) {
     url = URL.createObjectURL(url); // 创建blob地址
@@ -522,40 +533,40 @@ export default {
 
   created() {
     this.setTheme()
-    this.schoolTerm=this.schoolTerms[0]
+    this.schoolTerm = this.schoolTerms[0]
     // console.log(icsString)
-  },computed:{
-    getWeekDate:function (){
+  }, computed: {
+    getWeekDate: function () {
       console.log(this.now)
-      let date=new Date(this.now)
-      date.setDate(date.getDate()+(this.$vuetify.breakpoint.mobile?3:6))
-      console.log(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate())
-      return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+      let date = new Date(this.now)
+      date.setDate(date.getDate() + (this.$vuetify.breakpoint.mobile ? 3 : 6))
+      console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     }
   },
   methods: {
-    geniCS(){
-      try{
-        this.isLoading=true
-        let content=iCSExport(this.shortEvents,this.reminder)
+    geniCS() {
+      try {
+        this.isLoading = true
+        let content = iCSExport(this.shortEvents, this.reminder)
         let blob = new Blob([content], {
           type: "text/calendar;charset=utf-8"
         });
-        this.isLoading=false
+        this.isLoading = false
 
-        openDownloadDialog(blob,'class.ics')
+        openDownloadDialog(blob, 'class.ics')
 
 
-      }catch (e) {
+      } catch (e) {
         console.log(e)
-        this.isLoading=false
+        this.isLoading = false
       }
 
     },
-    showEvent({ event }){
-      this.detailInfo=event
-      this.detailInfo['date']=this.detailInfo['date'].replace("(周)","")
-      this.details=true
+    showEvent({event}) {
+      this.detailInfo = event
+      this.detailInfo['date'] = this.detailInfo['date'].replace("(周)", "")
+      this.details = true
     },
     setTheme() {
       const matchMedia = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : false
@@ -590,21 +601,21 @@ export default {
 
 
     },
-    parseEvent(){
+    parseEvent() {
 
-      this.isLoading=true
+      this.isLoading = true
       try {
-        this.now=this.schoolTerm.date
-        let praseRes=Parser(this.sheets,new Date(this.schoolTerm.date))
-        this.events=praseRes[0]
-        this.shortEvents=praseRes[1]
-        this.isLoading=false
+        this.now = this.schoolTerm.date
+        let praseRes = Parser(this.sheets, new Date(this.schoolTerm.date))
+        this.events = praseRes[0]
+        this.shortEvents = praseRes[1]
+        this.isLoading = false
 
         this.steps++
         this.$refs.calendar.scrollToTime('07:58')
 
-      }catch (e){
-        this.isLoading=false
+      } catch (e) {
+        this.isLoading = false
         console.log(e)
       }
     },
@@ -624,8 +635,8 @@ export default {
       reader.readAsArrayBuffer(this.files)
 
     },
-    concatDate(){
-      this.schoolTerm.date=this.startDate.year+'-'+this.startDate.month.padStart(2,'0')+'-'+this.startDate.day.padStart(2,"0")
+    concatDate() {
+      this.schoolTerm.date = this.startDate.year + '-' + this.startDate.month.padStart(2, '0') + '-' + this.startDate.day.padStart(2, "0")
     }
   },
 
@@ -633,24 +644,24 @@ export default {
     dark: false,
     steps: 1,
     files: null, sheets: null, info: {name: "暂无", major: "暂无", class: "暂无", date: "暂无"}, xlsValid: false, reveal: false,
-    events:[],schoolTerm:null,schoolTerms:schoolTerm,startDate:{
-      year:'',month:'',day:''
-    },isLoading:false,now:'',details:false,detailInfo:{
-      name:"大学英语(4-4)",
-      teacher:'朱荫成(讲师（高校）)',
-      date:'2-17',
-      time:'[03-04-05节]',
-      position:'南教303'
+    events: [], schoolTerm: null, schoolTerms: schoolTerm, startDate: {
+      year: '', month: '', day: ''
+    }, isLoading: false, now: '', details: false, detailInfo: {
+      name: "大学英语(4-4)",
+      teacher: '朱荫成(讲师（高校）)',
+      date: '2-17',
+      time: '[03-04-05节]',
+      position: '南教303'
 
-    },shortEvents:[],reminder:'',reminders: [
-      { text: '无提醒', value: '' },
-      { text: '提前10分钟', value: '-PT10M' },
-      { text: '提前30分钟', value: '-PT30M' },
-      { text: '提前1小时', value: '-PT1H' },
-      { text: '提前2小时', value: '-PT2H' },
-      { text: '提前1天', value: '-P1D' },
+    }, shortEvents: [], reminder: '', reminders: [
+      {text: '无提醒', value: ''},
+      {text: '提前10分钟', value: '-PT10M'},
+      {text: '提前30分钟', value: '-PT30M'},
+      {text: '提前1小时', value: '-PT1H'},
+      {text: '提前2小时', value: '-PT2H'},
+      {text: '提前1天', value: '-P1D'},
 
-    ],snackbar:false,
+    ], snackbar: false,
     //
   }),
 };
@@ -666,10 +677,12 @@ export default {
   position: absolute;
   width: 100%;
 }
-.v-list--three-line .v-list-item .v-list-item__subtitle, .v-list-item--three-line .v-list-item__subtitle{
-  -webkit-line-clamp:5!important;
+
+.v-list--three-line .v-list-item .v-list-item__subtitle, .v-list-item--three-line .v-list-item__subtitle {
+  -webkit-line-clamp: 5 !important;
 }
-.v-calendar .v-event-timed{
-  white-space:pre-wrap!important;
+
+.v-calendar .v-event-timed {
+  white-space: pre-wrap !important;
 }
 </style>

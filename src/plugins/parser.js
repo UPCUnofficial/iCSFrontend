@@ -8,8 +8,8 @@ export  function Parser(sheets,startDate) {
     console.log(sheets)
     let Events=[]
     let shortEvents=[]
-    for (let  index1  = 1; index1 < 8; index1++){
-        for (let  index2  = 4; index2 < 9; index2++){
+    for (let  index1  = 1; index1 < 8; index1++){ //B-H index1:上课日期周几
+        for (let  index2  = 4; index2 < 9; index2++){ //4-8 //index2 上课时间 第几大节
             let content=sheets[uppperLetter.charAt(index1)+index2]?sheets[uppperLetter.charAt(index1)+index2].v:undefined
             // console.log(content)
             // console.log(uppperLetter.charAt(index1)+index2)
@@ -112,7 +112,29 @@ function icsGenUUID() {
     return randomString(20)+"&UPC.edu"
 
 }
-// eslint-disable-next-line no-unused-vars
+// iCS Example:
+
+// BEGIN:VEVENT
+// CREATED:20210918T160240Z
+// UID:xRFxLyqYcaPytJrQqjad&UPC.edu
+// DTEND;TZID=Asia/Shanghai:20210913T122000
+// TRANSP:OPAQUE
+// X-APPLE-TRAVEL-ADVISORY-BEHAVIOR:AUTOMATIC
+// SUMMARY:大学英语(4-4)
+// DESCRIPTION:朱荫成(讲师（高校）)
+// LOCATION:南教303
+// DTSTART;TZID=Asia/Shanghai:20210913T095500
+// DTSTAMP:20210918T160240Z
+// RRULE:FREQ=WEEKLY;COUNT=15
+// BEGIN:VALARM
+// X-WR-ALARMUID:VCrXGMLVsIpGzpLDJpYa&UPC.edu
+// UID:TVyseGaVgHdHfdWvtlKP&UPC.edu
+// TRIGGER:-PT30M
+// DESCRIPTION:大学英语(4-4)@南教303
+// ACTION:DISPLAY
+// END:VALARM
+// END:VEVENT
+
 export function iCSExport(events,reminder){
 let icsEvents = []
     for(let event of events){
@@ -142,7 +164,8 @@ let icsEvents = []
 
 }
 function getDate(event,index1){
-
+    //dateArr 列出全部课程日程,用于页面预览
+    //shortDateArr 将每周连续可重复日程使用Repeat属性精简,形如`10-17(周)`类似的课程将被精简为一个日期第10周的课程事件,repeat为8.
     let dateArr=[ ]
     let shortDateArr=[ ]
     let date=event['date'].replace("(周)","")
@@ -154,18 +177,18 @@ function getDate(event,index1){
                 let wStart=Number(vi[0])
                 let wEnd=Number(vi[1])
                 for(let i =wStart;i<=wEnd;i++){
-                    dateArr.push((i-1)*7+index1-1)
+                    dateArr.push((i-1)*7+index1-2)
 
 
                 }
             shortDateArr.push(
-                {...event,dateStart:(wStart-1)*7+index1-1,repeat:wEnd-wStart+1}
+                {...event,dateStart:(wStart-1)*7+index1-2,repeat:wEnd-wStart+1}
             )
 
             }else{
-             dateArr.push((Number(v)-1)*7+index1-1)
+             dateArr.push((Number(v)-1)*7+index1-2)
                 shortDateArr.push(
-                    {...event,dateStart:(Number(v)-1)*7+index1-1,repeat:0}
+                    {...event,dateStart:(Number(v)-1)*7+index1-2,repeat:0}
                 )
             }
         })
@@ -177,15 +200,15 @@ function getDate(event,index1){
         let wStart=Number(vi[0])
         let wEnd=Number(vi[1])
         for(let i =wStart;i<=wEnd;i++){
-            dateArr.push((i-1)*7+index1-1)
+            dateArr.push((i-1)*7+index1-2)
         }
         shortDateArr.push(
-            {...event,dateStart:(wStart-1)*7+index1-1,repeat:wEnd-wStart+1}
+            {...event,dateStart:(wStart-1)*7+index1-2,repeat:wEnd-wStart+1}
         )
     }else {
-        dateArr.push((Number(date)-1)*7+index1-1)
+        dateArr.push((Number(date)-1)*7+index1-2)
         shortDateArr.push(
-            {...event,dateStart:(Number(date)-1)*7+index1-1,repeat:0}
+            {...event,dateStart:(Number(date)-1)*7+index1-2,repeat:0}
         )
     }
     console.log(dateArr)

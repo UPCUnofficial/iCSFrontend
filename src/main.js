@@ -4,6 +4,7 @@ import App from './App.vue'
 
 Vue.config.productionTip = false
 
+
 new Vue({
   vuetify:window.Vuetify,
   render: h => h(App)

@@ -50,6 +50,8 @@ yarn run build
 
 - [咸的鱼](https://x.saltedfish.fun/ics/)
 - [Github Pages](https://upcunofficial.github.io/iCSFrontend/)
+- [Vercel](https://upcics.vercel.app/)
+
 
 ## 🤯 无法解析\解析出错
 本项目的解析逻辑更多依赖于对XLS文件内文本格式的分析,因此XLS文件格式更新后可能出现解析出错或无法解析的问题.
